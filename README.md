@@ -91,7 +91,7 @@ Todas as imagens são imagens licenciáveis retiradas diretamente do Google.
 
 ## Link do jogo
 
-Adicione aqui o link do projeto no itch.io quando ele estiver publicado.
+https://g-nicacio.itch.io/halloween-candy-rush
 
 ## Observações
 
