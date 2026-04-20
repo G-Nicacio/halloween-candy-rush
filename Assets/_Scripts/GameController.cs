@@ -8,6 +8,7 @@ public static class GameController
 
     public static float globalTimer { get; private set; }
     public static float candyTimer { get; private set; }
+    public static float survivalTime { get; private set; }
 
     public static float globalTimerMax { get; private set; }
     public static float candyTimerMax { get; private set; }
@@ -20,6 +21,7 @@ public static class GameController
     {
         candies = 0;
         score = 0;
+        survivalTime = 0f;
 
         globalTimerMax = 30f;
         candyTimerMax = 20f;
@@ -37,6 +39,7 @@ public static class GameController
 
         globalTimer -= deltaTime;
         candyTimer -= deltaTime;
+        survivalTime += deltaTime;
     }
 
     public static bool IsCandyTimeOver()
@@ -59,7 +62,7 @@ public static class GameController
         if (candies >= fee)
         {
             candies -= fee;
-            score += 20;
+            score += 75;
             globalTimer = globalTimerMax;
         }
         else
@@ -71,27 +74,14 @@ public static class GameController
     public static void CollectCandy()
     {
         candies += 1;
-        score += 5;
+        score += 10;
     }
 
     public static void IncreaseDifficulty()
     {
-        if (score >= 20)
-        {
-            candyTimerMax = 18f;
-        }
+        fee = 3 + (score / 75);
 
-        if (score >= 50)
-        {
-            candyTimerMax = 15f;
-            fee = 4;
-        }
-
-        if (score >= 100)
-        {
-            candyTimerMax = 12f;
-            fee = 5;
-        }
+        candyTimerMax = Mathf.Max(8f, 20f - (score / 25f));
     }
 
     public static void ForceGameOver()

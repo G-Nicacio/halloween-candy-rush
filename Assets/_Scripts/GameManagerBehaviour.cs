@@ -17,6 +17,7 @@ public class GameManagerBehaviour : MonoBehaviour
     private List<Transform> obstacleSpawnPoints = new List<Transform>();
 
     private GameObject currentCandy;
+    private int lastCandySpawnIndex = -1;
 
     void Start()
     {
@@ -83,7 +84,23 @@ public class GameManagerBehaviour : MonoBehaviour
     {
         if (candySpawnPoints.Count == 0 || candyPrefab == null) return;
 
-        int randomIndex = Random.Range(0, candySpawnPoints.Count);
+        int randomIndex;
+
+        if (candySpawnPoints.Count == 1)
+        {
+            randomIndex = 0;
+        }
+        else
+        {
+            do
+            {
+                randomIndex = Random.Range(0, candySpawnPoints.Count);
+            }
+            while (randomIndex == lastCandySpawnIndex);
+        }
+
+        lastCandySpawnIndex = randomIndex;
+
         Transform spawnPoint = candySpawnPoints[randomIndex];
 
         currentCandy = Instantiate(candyPrefab, spawnPoint.position, Quaternion.identity, candyContainer);
@@ -131,10 +148,7 @@ public class GameManagerBehaviour : MonoBehaviour
 
     int GetHazardCountByScore()
     {
-        if (GameController.score >= 100) return 4;
-        if (GameController.score >= 50) return 3;
-        if (GameController.score >= 20) return 2;
-        return 1;
+        return Mathf.Min(5, 1 + GameController.score / 100);
     }
 
     void ClearHazards()

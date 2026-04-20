@@ -47,9 +47,9 @@ public class PlayerMovement : MonoBehaviour
     {
         if (other.CompareTag("Coletavel"))
         {
-            if (audioSource != null)
+            if (audioSource != null && audioSource.clip != null)
             {
-                audioSource.Play();
+                audioSource.PlayOneShot(audioSource.clip);
             }
 
             if (gameManager != null)

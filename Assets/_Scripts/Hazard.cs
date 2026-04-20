@@ -30,14 +30,23 @@ public class Hazard : MonoBehaviour
         {
             case HazardType.LoseCandy:
                 GameController.LoseOneCandy();
+
+                if (AudioManager.instance != null)
+                    AudioManager.instance.PlayLoseCandySound();
                 break;
 
             case HazardType.ReduceCandyTimer:
                 GameController.ReduceCandyTimer(candyTimerPenalty);
+
+                if (AudioManager.instance != null)
+                    AudioManager.instance.PlayReduceCandyTimerSound();
                 break;
 
             case HazardType.ReduceGlobalTimer:
                 GameController.ReduceGlobalTimer(globalTimerPenalty);
+
+                if (AudioManager.instance != null)
+                    AudioManager.instance.PlayReduceGlobalTimerSound();
                 break;
 
             case HazardType.SlowPlayer:
@@ -45,6 +54,9 @@ public class Hazard : MonoBehaviour
                 {
                     player.ApplySlow(slowMultiplier, slowDuration);
                 }
+
+                if (AudioManager.instance != null)
+                    AudioManager.instance.PlaySlowPlayerSound();
                 break;
         }
 
